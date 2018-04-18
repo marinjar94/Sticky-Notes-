@@ -1,13 +1,13 @@
 import React from "react";
 import NoteForm from "./NoteForm.js";
 
-const NewNote = ({saveFunct})=>{
+const NewNote = ({saveFunc,inputFunc,textareaFunc})=>{
     return(
         <div className="container fadeIn">
          <br/>
             <div className="row">
-            <NoteForm/>
-            <button className="btn btn-primary" onClick={saveFunct}>Save!</button>
+                <NoteForm inputFunc={inputFunc} textareaFunc={textareaFunc}/>
+                <button className="btn btn-primary" onClick={saveFunc}>Save!</button>
             </div>
         </div>
         );

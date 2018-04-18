@@ -4,11 +4,12 @@ import ViewAllNotes from "./ViewAllNotes.js";
 export default class App extends React.Component{
     constructor(){
         super();
-
-        this.state = {notes:[], isWriting:false, isViewing:false}
+        this.state = {notes:[],tempTitle:"",tempDescription:"",isWriting:false, isViewing:true}
         this.changeToWrite = this.changeToWrite.bind(this);
         this.changeToView = this.changeToView.bind(this);
         this.saveNote=this.saveNote.bind(this);
+        this.changeInput=this.changeInput.bind(this);
+        this.changeTextarea=this.changeTextarea.bind(this);
     }
 
     changeToWrite(e){
@@ -21,20 +22,22 @@ export default class App extends React.Component{
 
     saveNote(){
         var stateArray=this.state.notes;
-        console.log("kek, im in danger");
-        var titleInput=document.querySelector("input");
-        var descriptionInput=document.querySelector("textarea");
-        if(titleInput.value!=="" && descriptionInput.value!==""){
-        var tempObject = {title:titleInput.value, description:descriptionInput.value};
-        stateArray.push(tempObject);
-        this.setState({notes:stateArray});
-        titleInput.value="";
-        descriptionInput.value="";
-        window.alert("SAVED NOTE");
+        if(this.state.tempTitle!=="" && this.state.tempDescription!==""){
+            var tempObject = {title:this.state.tempTitle, description:this.state.tempDescription};
+            stateArray.push(tempObject);
+            this.setState({notes:stateArray,tempTitle:"",tempDescription:"",isWriting:false, isViewing:true});
+            window.alert("SAVED NOTE");
         }else{
             window.alert("shupalapashala");
-
         }
+    }
+
+    changeInput(e){
+        this.setState({tempTitle:e.target.value})
+    }
+
+    changeTextarea(e){
+        this.setState({tempDescription:e.target.value})
     }
 
     render(){
@@ -42,20 +45,20 @@ export default class App extends React.Component{
         <div className="container-fluid">
             <div className="row align-items-start">
                 <div className="col-lg-1">
-                <button className="btn btn-success" onClick={this.changeToWrite}>Add notes</button>
+                    <button className="btn btn-success" onClick={this.changeToWrite}>Add notes</button>
                 </div>
                 <div className="col-lg-1 offset-lg-1">
-                {this.state.notes.length>0?<button className="btn btn-info" onClick={this.changeToView}>View notes</button>:null}
+                    <button className="btn btn-info" onClick={this.changeToView}>View Note</button>
                 </div>
             </div>
             <div className="row">
                 <div className="col">
-                {this.state.isWriting?<NewNote saveFunct={this.saveNote}/>:null}
+                    {this.state.isWriting?<NewNote saveFunc={this.saveNote} inputFunc={this.changeInput} textareaFunc={this.changeTextarea}/>:null}
                 </div>
             </div>
             <div className="row">
                 <div className="col">
-                {this.state.isViewing?<ViewAllNotes notesData={this.state.notes}/>:null}
+                    {this.state.isViewing?<ViewAllNotes notesData={this.state.notes}/>:null}
                 </div>
             </div>
         </div>

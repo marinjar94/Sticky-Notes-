@@ -3,6 +3,12 @@ div.stickynote{
     -webkit-box-shadow: 10px 10px 29px -7px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 29px -7px rgba(0,0,0,0.75);
     box-shadow: 10px 10px 29px -7px rgba(0,0,0,0.75);
+    margin-bottom: 25px;
+    border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    border: 1px solid #7a717a;
+
 }
 
 .fadeIn {

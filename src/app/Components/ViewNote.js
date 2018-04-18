@@ -4,10 +4,10 @@ const ViewNote = ({singleNoteData})=>{
     return(
         <div className="container stickynote fadeIn">
         <br/>
-            <div className="row">    
+            <div className="row justify-content-center">    
                     <h1>{singleNoteData.title}</h1>
             </div>
-            <div className="row">    
+            <div className="row justify-content-center">    
                     <p>{singleNoteData.description}</p>
             </div>
         </div>
