@@ -4,12 +4,11 @@ import ViewAllNotes from "./ViewAllNotes.js";
 export default class App extends React.Component{
     constructor(){
         super();
-        this.state = {notes:[],tempTitle:"",tempDescription:"",isWriting:false, isViewing:true}
+        this.state = {notes:[],isWriting:false, isViewing:true}
         this.changeToWrite = this.changeToWrite.bind(this);
         this.changeToView = this.changeToView.bind(this);
         this.saveNote=this.saveNote.bind(this);
-        this.changeInput=this.changeInput.bind(this);
-        this.changeTextarea=this.changeTextarea.bind(this);
+        this.deleteNote=this.deleteNote.bind(this);
     }
 
     changeToWrite(e){
@@ -20,24 +19,26 @@ export default class App extends React.Component{
         this.setState({isWriting:false, isViewing:true})
     }
 
-    saveNote(){
+    saveNote(tempTitle,tempDescription){
         var stateArray=this.state.notes;
-        if(this.state.tempTitle!=="" && this.state.tempDescription!==""){
-            var tempObject = {title:this.state.tempTitle, description:this.state.tempDescription};
+        if(tempTitle!=="" && tempDescription!==""){
+            var tempObject = {title:tempTitle, description:tempDescription};
             stateArray.push(tempObject);
-            this.setState({notes:stateArray,tempTitle:"",tempDescription:"",isWriting:false, isViewing:true});
+            this.setState({notes:stateArray,isWriting:false, isViewing:true});
             window.alert("SAVED NOTE");
         }else{
             window.alert("shupalapashala");
         }
     }
 
-    changeInput(e){
-        this.setState({tempTitle:e.target.value})
-    }
-
-    changeTextarea(e){
-        this.setState({tempDescription:e.target.value})
+    deleteNote(currentIndex){
+        
+    var stateArray=this.state.notes;
+    
+    var newArray=stateArray.filter((el,index)=>{
+        return index!==currentIndex;
+    })
+    this.setState({notes:newArray,isWriting:false,isViewing:true});
     }
 
     render(){
@@ -53,12 +54,12 @@ export default class App extends React.Component{
             </div>
             <div className="row">
                 <div className="col">
-                    {this.state.isWriting?<NewNote saveFunc={this.saveNote} inputFunc={this.changeInput} textareaFunc={this.changeTextarea}/>:null}
+                    {this.state.isWriting?<NewNote saveFunc={this.saveNote}/>:null}
                 </div>
             </div>
             <div className="row">
                 <div className="col">
-                    {this.state.isViewing?<ViewAllNotes notesData={this.state.notes}/>:null}
+                    {this.state.isViewing?<ViewAllNotes notesData={this.state.notes} deleteNote={this.deleteNote}/>:null}
                 </div>
             </div>
         </div>

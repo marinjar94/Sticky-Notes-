@@ -2,7 +2,7 @@ import React from "react";
 import ViewNote from "./ViewNote.js"
 
 
-const ViewAllNotes = ({notesData})=>{
+const ViewAllNotes = ({notesData,deleteNote})=>{
     if(notesData.length>0){
         return(
             <div className="container .fadeIn">
@@ -12,7 +12,7 @@ const ViewAllNotes = ({notesData})=>{
                     {   
                    
                         notesData.map((note,index)=>{
-                            return <ViewNote singleNoteData={note} key={index}/>;
+                            return <ViewNote singleNoteData={note} key={index} position={index} deleteNote={deleteNote}/>;
                         })
                     }
                     
